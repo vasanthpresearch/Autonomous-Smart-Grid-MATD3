@@ -1,0 +1,6 @@
+# Development & Notebook Analysis
+-r requirements.txt
+notebook>=7.0.0
+ipykernel>=6.29.0
+nbconvert>=7.17.0
+nbformat>=5.10.0

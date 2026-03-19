@@ -1,0 +1,18 @@
+// Master File for AEG Resilience Simulation
+clear
+
+new circuit.AEG_System basekv=11 pu=1.05 phases=3 bus1=SourceBus
+
+// Define Line Codes
+new linecode.acsr nphases=3 R1=0.1901 X1=0.3908 units=km
+
+// Define Transformers (IEEE 1547 Compliant)
+new transformer.Sub TRphases=3 windings=2 buses=(SourceBus, RegBus) conns=(delta, wye) kvs=(11, 0.415) kvas=(2500, 2500)
+
+// Define Smart Inverters (6G Interface)
+new storage.Battery1 phases=3 bus1=Bus13 kV=0.415 kwhrated=500 kwrated=200
+~ state=idling discharafficiency=95 chageefficiency=95
+
+// Set simulation for resilience test (fault analysis)
+set mode=daily stepsize=1h number=24
+solve
