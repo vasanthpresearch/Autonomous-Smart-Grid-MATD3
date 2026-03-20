@@ -1,0 +1,37 @@
+// Clear the engine memory
+Clear
+
+// 1. Create the Circuit Header
+New Circuit.AEG_Resilience_Test
+~ basekv=115  pu=1.05  phases=3  bus1=SourceBus
+~ Angle=0  baseMVA=100
+
+// 2. Redirect to Library Files
+// This pulls in the ACSR and Underground cable specs we wrote
+Redirect linecodes.dss
+
+// 3. Define the Network Topology (Example 3-node feeder)
+// Line from Source to Transformer
+New Line.L1  Bus1=SourceBus  Bus2=TransformerBus  LineCode=acsr_3ph  Length=2.0  Units=km
+
+// Step-down Transformer (115kV to 12.47kV)
+New Transformer.Substation  Phases=3  Windings=2  Xhl=8
+~ wdg=1  bus=TransformerBus  kv=115   conn=delta
+~ wdg=2  bus=GridBus1        kv=12.47  conn=wye
+
+// Line to the Smart Inverter Bus
+New Line.L2  Bus1=GridBus1  Bus2=AI_Control_Bus  LineCode=ug_cable  Length=1.5  Units=km
+
+// 4. Define the Smart DER (Controlled by MATD3)
+// We define it as 'Storage' so the agent can charge/discharge
+New Storage.Battery1  Bus1=AI_Control_Bus  Phases=3
+~ kV=12.47  kWRated=500  kWhRated=2000
+~ state=idling  %EffCharge=95  %EffDischarge=95
+
+// 5. Define Loads (The 'Stress' for the resilience test)
+New Load.Resid_Load  Bus1=AI_Control_Bus  Phases=3  kV=12.47  kW=400  pf=0.9
+
+// 6. Final Setup
+Set VoltageBases=[115, 12.47]
+CalcVoltageBases
+Solve

@@ -1,0 +1,32 @@
+# --- Python and OS ---
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+.DS_Store
+
+# --- OpenDSS Temporary Files ---
+# OpenDSS generates these during 'Solve' commands
+*.DSV
+*.vsco
+*.txt
+*.tmp
+temp/
+*.log
+
+# --- Machine Learning Artifacts ---
+# We want the final model, but maybe not every checkpoint
+models/checkpoint_*.pth
+runs/
+.ipynb_checkpoints/
+
+# --- Simulation Data ---
+# Ignore large raw CSVs if you prefer, but keep the summary logs
+data/simulation_results/temp_*.csv
+
+# --- IDE Specific ---
+.vscode/
+.idea/

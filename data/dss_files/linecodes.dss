@@ -1,0 +1,26 @@
+// Standard LineCode Definitions for AEG Resilience Study
+// Units are in per-kilometer (km)
+
+// 1. 3-Phase Overhead Line (Typical for Main Feeder)
+// Resistance (R1), Reactance (X1), Zero-sequence (R0, X0)
+new linecode.acsr_3ph nphases=3 
+~ R1=0.1901 X1=0.3908 
+~ R0=0.5053 X0=1.5245 
+~ units=km 
+
+// 2. Single-Phase Lateral (Typical for Residential Connections)
+new linecode.acsr_1ph nphases=1 
+~ R1=0.4523 X1=0.4102 
+~ units=km
+
+// 3. Underground Cable (Low impedance, high capacitance)
+new linecode.ug_cable nphases=3 
+~ R1=0.1153 X1=0.1023 
+~ C1=0.2500 // Capacitance in nF/km
+~ units=km
+
+// 4. "Faulty" Line Code (Used for Stress Testing/Resilience)
+// Increased resistance to simulate aged or damaged conductors
+new linecode.damaged_line nphases=3 
+~ R1=0.5801 X1=0.6908 
+~ units=km

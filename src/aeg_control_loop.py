@@ -1,19 +1,28 @@
 import opendssdirect as dss
 import torch
 import numpy as np
-from matd3_agent import Actor  # Importing the Actor class we defined earlier
+import os
+import sys
+
+# Get the absolute path to the project root (one level up from /notebooks)
+root_path = os.path.abspath(os.path.join(os.getcwd(), '..'))
+
+if root_path not in sys.path:
+    sys.path.append(root_path)
+
+from src.matd3_agent import Actor  # Importing the Actor class we defined earlier
 
 # 1. Initialize OpenDSS Simulation
-dss.Basic.Start()
-dss.Text.Command('Compile (master.dss)')  # Loads your grid config
+dss.Basic.Start(0)
+dss.Text.Command('Compile (dss_files/master.dss)')  # Loads your grid config
 
 # 2. Setup the MATD3 Agent
-state_dim = 24  # Example: Voltage at 12 buses + Current at 12 lines
+state_dim = 12  # Match the trained model's input size
 action_dim = 4  # Example: Real/Reactive power for 2 Smart Inverters
 max_action = 1.0
 
 actor = Actor(state_dim, action_dim, max_action)
-actor.load_state_dict(torch.load("trained_matd3_actor.pth"))
+actor.load_state_dict(torch.load("models/trained_matd3_actor.pth"))
 actor.eval()
 
 def get_grid_state():

@@ -1,4 +1,15 @@
+# --- Core Simulation ---
+opendssdirect.py>=0.8.0
+numpy>=1.21.0
+scipy>=1.10.1
+
+# --- Deep Learning (MATD3) ---
 torch>=2.0.0
-numpy
-opendssdirect.py
-matplotlib
+torchvision>=0.13.0
+
+# --- Data Visualization ---
+matplotlib>=3.5.0
+pandas>=1.4.0
+
+# --- Environment ---
+gym>=0.21.0
