@@ -36,6 +36,15 @@ Under a 150% Load Stress Scenario, the AEG-MATD3 agent achieved the following re
     ```
     Note: Requires OpenDSSDirect.py, torch, numpy, and matplotlib.
 
+2.1 Install Jupyter (if not already installed):
+   ```text
+   pip install notebook
+   ```
+
+3.  Launch the Simulation:
+   ```text
+   jupyter notebook Main_Simulation.ipynb
+   ```
 
 
 
@@ -49,7 +58,7 @@ Under a 150% Load Stress Scenario, the AEG-MATD3 agent achieved the following re
      
   3. Agent Intervention: Deploy the MATD3 actor to dispatch Battery Energy Storage Systems (BESS).
      
-  4. Visualize: Generate publication-quality resilience comparison graphs.
+  4. Visualize: Generate resilience comparison graphs.
   ```text
      # Quick start snippet
     from src.opendss_env import OpenDSSEnv
@@ -89,3 +98,24 @@ If you use this code or the AEG-MATD3 framework in your research, please cite ou
 🤝 Contributing
 
 Contributions are welcome! If you find a bug or have a suggestion for improving the MATD3 reward function, please open an Issue or a Pull Request.
+
+
+🚀 Future Research Directions (Roadmap 2026-2030)
+
+While the current AEG-MATD3 framework achieves a 35% resilience improvement, several high-impact extensions are planned:
+
+1. Integration of GNNs (Graph Neural Networks)
+   
+Currently, the state-space is a flat vector. By implementing a Graph Convolutional Reinforcement Learning (GCRL) layer, the agent could learn the spatial topology of the IEEE 33-bus system more effectively. This would allow the model to generalize to any grid size without retraining.
+
+2. 7G & Terahertz Communication Layer
+   
+As we move beyond 6G, we aim to simulate Sub-100µs Latency environments. This will explore "Extreme URLLC" where the AI must react to transient faults (milliseconds) rather than just steady-state voltage sags.
+
+3. Cyber-Physical Adversarial Training
+   
+To ensure "Bulletproof" resilience, future versions will include Adversarial Agents that simulate cyber-attacks on 6G sensors (False Data Injection). The goal is to train the MATD3 Actor to detect and ignore "poisoned" voltage data.
+
+4. Multi-Energy Microgrids (P2G & Heat)
+   
+Expanding the opendss_env.py to include Power-to-Gas (P2G) and thermal storage. This turns the grid into a "Sector-Coupled" system, providing even more flexibility for the MATD3 agent to balance the load.
